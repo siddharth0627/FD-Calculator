@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Responsive viewport -->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Estimate your Fixed Deposit maturity amount using Normal or Compound interest calculations."
+    >
+
+    <title>Fixed Deposit Calculator | FD Calculator</title>
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+    <header class="site-header">
+        <div class="container header-content">
+
+            <a href="#" class="brand" aria-label="FD Calculator Home">
+                <span class="brand-icon">₹</span>
+
+                <span class="brand-text">
+                    <strong>FD Calculator</strong>
+                    <small>Fixed Deposit Estimator</small>
+                </span>
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+    <main class="main-content">
+
+        <div class="container">
+
+            <!-- Page introduction -->
+            <section class="hero-section">
+                <div class="hero-content">
+
+                    <span class="eyebrow">
+                        FINTECH CALCULATOR
+                    </span>
+
+                    <h1>
+                        Fixed Deposit
+                        <span>Calculator</span>
+                    </h1>
+
+                    <p>
+                        Estimate your Fixed Deposit interest and maturity
+                        amount using simple interest or compound interest
+                        calculations.
+                    </p>
+
+                </div>
+            </section>
+
+
+            <!-- =========================================
+                 CALCULATOR LAYOUT
+            ========================================== -->
+            <section class="calculator-grid">
+
+                <!-- =====================================
+                     LEFT: INPUT CARD
+                ====================================== -->
+                <div class="card input-card">
+
+                    <div class="card-header">
+                        <div>
+                            <span class="section-label">
+                                INVESTMENT DETAILS
+                            </span>
+
+                            <h2>
+                                Calculate your FD
+                            </h2>
+                        </div>
+                    </div>
+
+
+                    <!-- Calculator Form -->
+                    <form id="fdForm" novalidate>
+
+                        <!-- Deposit Amount -->
+                        <div class="form-group">
+
+                            <label for="depositAmount">
+                                Deposit Amount
+                            </label>
+
+                            <div class="input-wrapper currency-input">
+
+                                <span
+                                    class="input-prefix"
+                                    aria-hidden="true"
+                                >
+                                    ₹
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="depositAmount"
+                                    name="depositAmount"
+                                    placeholder="e.g. 100000"
+                                    min="0"
+                                    step="0.01"
+                                    inputmode="decimal"
+                                    autocomplete="off"
+                                    aria-describedby="depositError"
+                                >
+
+                            </div>
+
+                            <p
+                                id="depositError"
+                                class="validation-message"
+                                role="alert"
+                            ></p>
+
+                        </div>
+
+
+                        <!-- Interest Rate -->
+                        <div class="form-group">
+
+                            <label for="interestRate">
+                                Annual Interest Rate
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <input
+                                    type="number"
+                                    id="interestRate"
+                                    name="interestRate"
+                                    placeholder="e.g. 7.5"
+                                    min="0"
+                                    step="0.01"
+                                    inputmode="decimal"
+                                    autocomplete="off"
+                                    aria-describedby="rateError"
+                                >
+
+                                <span
+                                    class="input-suffix"
+                                    aria-hidden="true"
+                                >
+                                    %
+                                </span>
+
+                            </div>
+
+                            <p
+                                id="rateError"
+                                class="validation-message"
+                                role="alert"
+                            ></p>
+
+                        </div>
+
+
+                        <!-- Duration -->
+                        <div class="form-group">
+
+                            <label for="duration">
+                                Duration
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <input
+                                    type="number"
+                                    id="duration"
+                                    name="duration"
+                                    placeholder="e.g. 5"
+                                    min="1"
+                                    step="1"
+                                    inputmode="numeric"
+                                    autocomplete="off"
+                                    aria-describedby="durationError"
+                                >
+
+                                <span
+                                    class="input-suffix"
+                                    aria-hidden="true"
+                                >
+                                    Years
+                                </span>
+
+                            </div>
+
+                            <p
+                                id="durationError"
+                                class="validation-message"
+                                role="alert"
+                            ></p>
+
+                        </div>
+
+
+                        <!-- Calculation Mode -->
+                        <fieldset class="form-group mode-fieldset">
+
+                            <legend>
+                                Calculation Mode
+                            </legend>
+
+                            <div class="mode-options">
+
+                                <label class="mode-option">
+
+                                    <input
+                                        type="radio"
+                                        name="calculationMode"
+                                        id="normalMode"
+                                        value="normal"
+                                        checked
+                                    >
+
+                                    <span class="mode-option-content">
+
+                                        <span class="mode-option-title">
+                                            Normal
+                                        </span>
+
+                                        <span class="mode-option-description">
+                                            Simple Interest
+                                        </span>
+
+                                    </span>
+
+                                </label>
+
+
+                                <label class="mode-option">
+
+                                    <input
+                                        type="radio"
+                                        name="calculationMode"
+                                        id="compoundMode"
+                                        value="compound"
+                                    >
+
+                                    <span class="mode-option-content">
+
+                                        <span class="mode-option-title">
+                                            Compound
+                                        </span>
+
+                                        <span class="mode-option-description">
+                                            Interest is reinvested
+                                        </span>
+
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                        </fieldset>
+
+
+                        <!-- =====================================
+                             COMPOUNDING FREQUENCY
+                        ====================================== -->
+                        <div
+                            class="form-group frequency-group"
+                            id="frequencyGroup"
+                        >
+
+                            <label for="compoundingFrequency">
+                                Compounding Frequency
+                            </label>
+
+                            <select
+                                id="compoundingFrequency"
+                                name="compoundingFrequency"
+                                disabled
+                            >
+
+                                <option value="4" selected>
+                                    Quarterly
+                                </option>
+
+                                <option value="2">
+                                    Half-Yearly
+                                </option>
+
+                                <option value="1">
+                                    Annually
+                                </option>
+
+                                <option value="12">
+                                    Monthly (Illustrative)
+                                </option>
+
+                            </select>
+
+                            <p class="field-help">
+                                Quarterly is selected by default.
+                                Monthly frequency is illustrative and may
+                                differ from bank-specific FD rules.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="calculateButton"
+                            >
+                                <span>Calculate Maturity</span>
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                id="resetButton"
+                            >
+                                Reset
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- =====================================
+                     RIGHT: RESULT CARD
+                ====================================== -->
+                <div class="results-column">
+
+                    <!-- Maturity Highlight -->
+                    <div class="card maturity-card">
+
+                        <div class="maturity-card-top">
+
+                            <div>
+                                <span class="section-label">
+                                    ESTIMATED MATURITY
+                                </span>
+
+                                <p class="maturity-label">
+                                    Final Maturity Amount
+                                </p>
+                            </div>
+
+                            <span
+                                class="mode-badge"
+                                id="selectedModeBadge"
+                            >
+                                Normal
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="maturity-amount"
+                            id="maturityAmount"
+                            aria-live="polite"
+                        >
+                            ₹0.00
+                        </div>
+
+
+                        <p class="estimate-note">
+                            Estimated value based on the inputs provided.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Result Summary -->
+                    <div class="card summary-card">
+
+                        <div class="card-header compact">
+
+                            <div>
+                                <span class="section-label">
+                                    RESULT SUMMARY
+                                </span>
+
+                                <h2>
+                                    Investment overview
+                                </h2>
+                            </div>
+
+                        </div>
+
+
+                        <div class="summary-grid">
+
+                            <!-- Principal -->
+                            <div class="summary-item">
+
+                                <span class="summary-label">
+                                    Principal Amount
+                                </span>
+
+                                <strong
+                                    id="principalResult"
+                                    class="summary-value"
+                                >
+                                    ₹0.00
+                                </strong>
+
+                            </div>
+
+
+                            <!-- Interest -->
+                            <div class="summary-item">
+
+                                <span class="summary-label">
+                                    Total Interest Earned
+                                </span>
+
+                                <strong
+                                    id="interestResult"
+                                    class="summary-value interest-value"
+                                >
+                                    ₹0.00
+                                </strong>
+
+                            </div>
+
+
+                            <!-- Effective Yield -->
+                            <div class="summary-item">
+
+                                <span class="summary-label">
+                                    Effective Annual Yield
+                                </span>
+
+                                <strong
+                                    id="effectiveYieldResult"
+                                    class="summary-value"
+                                >
+                                    0.00%
+                                </strong>
+
+                            </div>
+
+
+                            <!-- Mode -->
+                            <div class="summary-item">
+
+                                <span class="summary-label">
+                                    Calculation Mode
+                                </span>
+
+                                <strong
+                                    id="calculationModeResult"
+                                    class="summary-value"
+                                >
+                                    Normal
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Information Note -->
+                    <div class="info-card">
+
+                        <span class="info-icon" aria-hidden="true">
+                            i
+                        </span>
+
+                        <div>
+                            <strong>
+                                Estimate only
+                            </strong>
+
+                            <p>
+                                Actual bank maturity values may vary due to
+                                bank-specific interest calculation methods,
+                                rounding rules, taxes, payout terms, and
+                                other applicable conditions.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================================
+                 YEARLY BREAKDOWN
+            ========================================== -->
+            <section class="card breakdown-card">
+
+                <div class="card-header breakdown-header">
+
+                    <div>
+                        <span class="section-label">
+                            YEARLY BREAKDOWN
+                        </span>
+
+                        <h2>
+                            Growth by year
+                        </h2>
+
+                        <p class="section-description">
+                            See how your balance changes throughout the
+                            selected investment period.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- Responsive table wrapper -->
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Year
+                                </th>
+
+                                <th
+                                    scope="col"
+                                    class="text-right"
+                                >
+                                    Opening Balance
+                                </th>
+
+                                <th
+                                    scope="col"
+                                    class="text-right"
+                                >
+                                    Interest Earned
+                                </th>
+
+                                <th
+                                    scope="col"
+                                    class="text-right"
+                                >
+                                    Closing Balance
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="breakdownBody">
+
+                            <!--
+                                JavaScript will generate the yearly
+                                breakdown rows here.
+                            -->
+
+                            <tr class="empty-table-row">
+
+                                <td colspan="4">
+                                    Enter your FD details and click
+                                    "Calculate Maturity" to see the
+                                    yearly breakdown.
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================================
+                 CALCULATION INFORMATION
+            ========================================== -->
+            <section class="calculation-info">
+
+                <div class="calculation-info-content">
+
+                    <span class="section-label">
+                        HOW IT WORKS
+                    </span>
+
+                    <h2>
+                        Fixed Deposit calculation methods
+                    </h2>
+
+                    <div class="formula-grid">
+
+                        <!-- Normal Formula -->
+                        <article class="formula-card">
+
+                            <div class="formula-number">
+                                01
+                            </div>
+
+                            <h3>
+                                Normal Mode
+                            </h3>
+
+                            <p>
+                                Simple interest is calculated on the
+                                original principal throughout the
+                                investment period.
+                            </p>
+
+                            <div class="formula">
+                                SI = (P × R × T) / 100
+                            </div>
+
+                        </article>
+
+
+                        <!-- Compound Formula -->
+                        <article class="formula-card">
+
+                            <div class="formula-number">
+                                02
+                            </div>
+
+                            <h3>
+                                Compound Mode
+                            </h3>
+
+                            <p>
+                                Interest is added to the balance at each
+                                selected compounding period and earns
+                                interest in subsequent periods.
+                            </p>
+
+                            <div class="formula">
+                                A = P × (1 + r/n)<sup>n×t</sup>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================================
+                 DISCLAIMER
+            ========================================== -->
+            <section class="disclaimer">
+
+                <p>
+                    <strong>Disclaimer:</strong>
+                    This Fixed Deposit Calculator is provided for
+                    estimation purposes only. It does not constitute an
+                    official quote from any bank or financial institution.
+                    Actual FD returns may differ based on applicable bank
+                    rules, compounding conventions, rounding, taxes,
+                    premature withdrawal terms, payout options, and other
+                    conditions.
+                </p>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+    <footer class="site-footer">
+
+        <div class="container footer-content">
+
+            <p>
+                © <span id="currentYear"></span>
+                FD Calculator. For estimation purposes only.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Main JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
